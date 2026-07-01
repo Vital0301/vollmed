@@ -1,12 +1,21 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import LabeledInput from "../components/LabeledInput";
-import ButtonForm from "../components/ButtonForm";
+import { useNavigation } from "@react-navigation/native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import ButtonForm from "../components/ButtonForm";
+import LabeledInput from "../components/LabeledInput";
 
+// Componente de Tela
 export default function LoginScreen() {
+  const navigation = useNavigation();
+
   return (
+
     <SafeAreaView style={styles.safeArea}>
       <ScrollView>
+        <Image 
+          source={require("../assets/images/logo.png")}
+          style={styles.logo}
+        />
         <Text style={styles.title}>Faça login em sua conta</Text>
         <View style={styles.form}>
           <LabeledInput
@@ -19,43 +28,59 @@ export default function LoginScreen() {
             placeholder="Insira sua senha"
             secureTextEntry={true}
           />
-          <ButtonForm 
-            textButton="Entrar"
-          />
-          <TouchableOpacity style={styles.forget}>
-            <Text style={styles.forgetText}>Esqueceu sua senha?</Text>
-          </TouchableOpacity>
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>Ainda não tem conta?</Text>
-            <TouchableOpacity >
-              <Text style={styles.footerLink}>Faça seu cadastro!</Text>
-            </TouchableOpacity>
-          </View>
+         <ButtonForm
+          textButton="Entrar"
+         />
+        <TouchableOpacity style={styles.forget}> 
+         <Text style={styles.forgetText}>Esqueceu sua senha?</Text>
+        </TouchableOpacity>
+    
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Ainda não tem conta?</Text>
+          <TouchableOpacity
+            onPress={ () => navigation.navigate("register") }
+          > 
+            <Text style={styles.footerLink}> Faça seu cadastro!</Text>
+          </TouchableOpacity> 
+        </View>
+
         </View>
       </ScrollView>
     </SafeAreaView>
+
   )
 }
 
 const styles = StyleSheet.create({
+  safeArea:{
+    flex:1,
+    backgroundColor: "#FFFFFF",
+    paddingTop: 62,
+
+  },
+  logo:{
+    height: 34,
+    width: 150,
+    alignSelf: "center", // Centraliza a imagem dentro do container
+    marginBottom: 62,
+  },
   title: {
     fontSize: 20,
     fontWeight: "700", // Define o peso da fonte como negrito forte
     textAlign: "center",
-    color: "#6b6e71",
+    color: "#6B6E71",
     marginBottom: 26,
   },
-  form: {
+  form:{
     width: "100%",
     marginTop: 16,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   forgetText: {
-    color: "#00213d",
-    textDecorationLine: "underline",
+    color: "#00213D",
     fontSize: 13,
     fontWeight: "600",
-    // textAlign: "center",
+    textDecorationLine: "underline",
   },
   forget: {
     marginTop: 14,
@@ -63,17 +88,16 @@ const styles = StyleSheet.create({
   },
   footer: {
     marginTop: 30,
-    flexDirection: "row",
+    flexDirection:"row",
     justifyContent: "center",
     alignItems: "center",
-
   },
   footerText: {
     fontSize: 13,
-    color: "#3a3a3a",
+    color: "#3A3A3A",
   },
   footerLink: {
-    color: "#0e73e8",
+    color: "#0E73E8",
     fontSize: 13,
     fontWeight: "700",
   },
